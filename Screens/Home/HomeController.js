@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import HomeView from './HomeView';
 import { useRouter } from 'next/router';
 
