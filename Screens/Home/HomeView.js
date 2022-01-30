@@ -1,10 +1,30 @@
 import React from 'react';
 import styles from './Home.module.css'
 import Link from 'next/link'
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, CircularProgress } from '@mui/material';
 
 
-const HomeView = ({ onDetail1Clicked, onDetailDataClicked}) => {
+const HomeView = ({ items}) => {
+
+    let itemArrays = [];
+
+    if(items){
+        items.forEach(element => {
+            let infoLink = "/detail/" + element.id;
+            itemArrays.push(
+                <Link href={infoLink} key={element.id}>
+                    <Typography gutterBottom variant="h6" className={styles.text}>
+                        Detail {element.name}
+                    </Typography>
+                </Link>
+            )
+        });
+    } else {
+        itemArrays.push(
+            <CircularProgress key={1}/>
+        );
+    }
+    
     return (
 
         <Grid container
@@ -20,20 +40,7 @@ const HomeView = ({ onDetail1Clicked, onDetailDataClicked}) => {
                         Home
                     </Typography>
                 </a>
-                <Link href="/detail/0">                   
-                    <Typography gutterBottom variant="h6" className={styles.text}>
-                        Detail 0
-                    </Typography>
-                </Link>
-
-                <Typography gutterBottom variant="h6" className={styles.text} onClick={onDetail1Clicked}>
-                    Detail 1
-                </Typography>
-       
-                <Typography gutterBottom variant="h6" className={styles.text} onClick={onDetailDataClicked}>
-                    Detail Data
-                </Typography>
-
+                {itemArrays}
             </Grid>
         </Grid>
     );
